@@ -249,8 +249,6 @@ class Insect extends EnergyHolder {
 		super(studentWorld, startX, startY, startDir, energy, img, INSECT_DEPTH);
 		this.sleepTicks = 0;
 		this.stunned = false;
-		if (startDir == Direction.right)
-			this.setDirection(this.getRandomDirection());
 	}
 
 	doSomething(){
@@ -318,26 +316,6 @@ class Insect extends EnergyHolder {
 
 	increaseSleepTicks(amt = throwIfMissing()){
 		this.sleepTicks += amt;
-	}
-
-	getRandomDirection(){
-		switch(randInt(1, 4)) {
-			case 1:
-				return Direction.up;
-				break;
-			case 2:
-				return Direction.right;
-				break;
-			case 3:
-				return Direction.down;
-				break;
-			case 4:
-				return Direction.left;
-				break;
-			default:
-				return Direction.none;
-		}
-		return Direction.none;
 	}
 
 	doSomethingAux(){
@@ -508,7 +486,7 @@ class Ant extends Insect {
 				}
 				case Opcode.faceRandomDirection:
 				{
-					this.setDirection(this.getRandomDirection());
+					this.setDirection(getRandomDirection());
 					console.log("faceRandomDirection");
 					break;
 				}
@@ -615,7 +593,7 @@ class Ant extends Insect {
 
 class Grasshopper extends Insect {
 	constructor(studentWorld = throwIfMissing(), startX = throwIfMissing(), startY = throwIfMissing(), energy = throwIfMissing(), img = throwIfMissing()){
-		super(studentWorld, startX, startY, Direction.right, energy, img);
+		super(studentWorld, startX, startY, getRandomDirection(), energy, img);
 		this.walkDist = 0;
 		this.chooseDirectionAndDistance();
 	}
@@ -639,7 +617,7 @@ class Grasshopper extends Insect {
 
 	chooseDirectionAndDistance(){
 		this.walkDist = randInt(MIN_WALK_DIST, MAX_WALK_DIST);
-		super.setDirection(super.getRandomDirection());
+		this.setDirection(getRandomDirection());
 	}
 }
 
