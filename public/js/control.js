@@ -80,7 +80,6 @@ function rightField(){
 
 function addField(evt){
     var reader  = new FileReader();
-
     reader.addEventListener("load", function () {
         clearInterval(tickInterval);
         var button = document.getElementById("runButton");
@@ -91,11 +90,51 @@ function addField(evt){
             if(f[i] != "\n")
                 fl += f[i];
         }
-        fields.push(fl);
-        field_index = fields.length-1;
-        sw = new StudentWorld();
-        sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
-        sw.draw();
+        let invalid = (fl.length !== 4096);
+        if(invalid){
+            swal({
+                title: "Invalid Map",
+                text: `The map file contains ${fl.length} cells. It needs to contain exactly 4096 cells.`,
+                type: "error",
+                confirmButtonText: "Got it."
+            }).then(function(){
+                compileCode();
+            });
+        }
+        for(var i = 0; i < 64 && !invalid; i++){
+            if(!(fl[i]=='*' && fl[64*i] == '*' && fl[64*i+63] == '*' && fl[64*63 + i] == '*')){
+                invalid = true;
+                swal({
+                    title: "Invalid Map",
+                    text: `The edges of the map need to be filled with pebbles.`,
+                    type: "error",
+                    confirmButtonText: "Got it."
+                }).then(function(){
+                    compileCode();
+                });
+            }
+        }
+        for(var i = 0; i < fl.length && !invalid; i++){
+            if(!"*g0123wpf ".includes(fl[i])){
+                invalid = true;
+                swal({
+                    title: "Invalid Map",
+                    text: `We didn't recognize '${fl[i]}' :( The map can only include *, 0, 1, 2, 3, g, w, p, f, and spaces.`,
+                    type: "error",
+                    confirmButtonText: "Got it."
+                }).then(function(){
+                    compileCode();
+                });
+            }
+        }
+        if(!invalid){
+            fields.push(fl);
+            field_index = fields.length-1;
+            sw = new StudentWorld();
+            sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+            sw.draw();
+        }
+        
     }, false);
 
     if (file) {
