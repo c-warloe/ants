@@ -245,11 +245,12 @@ class Poison extends TriggerableActor {
 }
 
 class Insect extends EnergyHolder {
-	constructor(studentWorld = throwIfMissing(), startX = throwIfMissing(), startY = throwIfMissing(), energy = throwIfMissing(), img = throwIfMissing()){
-		super(studentWorld, startX, startY, Direction.right, energy, img, INSECT_DEPTH);
+	constructor(studentWorld = throwIfMissing(), startX = throwIfMissing(), startY = throwIfMissing(), startDir = throwIfMissing(), energy = throwIfMissing(), img = throwIfMissing()){
+		super(studentWorld, startX, startY, startDir, energy, img, INSECT_DEPTH);
 		this.sleepTicks = 0;
 		this.stunned = false;
-		this.setDirection(this.getRandomDirection());
+		if (startDir == Direction.right)
+			this.setDirection(this.getRandomDirection());
 	}
 
 	doSomething(){
@@ -345,7 +346,7 @@ class Insect extends EnergyHolder {
 
 class Ant extends Insect {
 	constructor(studentWorld = throwIfMissing(), startX = throwIfMissing(), startY = throwIfMissing(), colony = throwIfMissing(), program = throwIfMissing()){// remove 'img' from header, this is diff from sol
-		super(studentWorld, startX, startY, ANT_START_ENERGY, colony + 'ant');
+		super(studentWorld, startX, startY, Direction.up, ANT_START_ENERGY, colony + 'ant');
 		this.colony = colony;
 		this.program = program;
 
@@ -614,7 +615,7 @@ class Ant extends Insect {
 
 class Grasshopper extends Insect {
 	constructor(studentWorld = throwIfMissing(), startX = throwIfMissing(), startY = throwIfMissing(), energy = throwIfMissing(), img = throwIfMissing()){
-		super(studentWorld, startX, startY, energy, img);
+		super(studentWorld, startX, startY, Direction.right, energy, img);
 		this.walkDist = 0;
 		this.chooseDirectionAndDistance();
 	}
