@@ -110,6 +110,26 @@ function randInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
+function getRandomDirection(){
+    switch(randInt(1, 4)) {
+        case 1:
+            return Direction.up;
+            break;
+        case 2:
+            return Direction.right;
+            break;
+        case 3:
+            return Direction.down;
+            break;
+        case 4:
+            return Direction.left;
+            break;
+        default:
+            return Direction.none;
+    }
+    return Direction.none;
+}
+
 // Temp dev. method
 function throwIfMissing() {
     throw new Error('Missing parameter');
