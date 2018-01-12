@@ -147,7 +147,7 @@ var dumbAntProg = `colony: DumbAnt
 // happens to stumble upon it, eats when it gets hungry,
 // and will drop food on its anthill if it happens to be
 // stumble back on its anthill while holding food.
-// here are the ant’s programming instructions, written
+// here are the ant's programming instructions, written
 // in our "Bugs!" language
 
 start:
@@ -161,10 +161,10 @@ on_food:
     pickUpFood
     goto start // jump back to the "start:" line
 eat_food:
-    eatFood // assumes we have food – I hope we do!
+    eatFood // assumes we have food - I hope we do!
     goto start // jump back to the "start:" line
 on_hill:
-    dropFood // feed the anthill’s queen ant so she
+    dropFood // feed the anthill's queen ant so she
     // can produce more ants for the colony
     goto start // jump back to the "start:" line`;
 

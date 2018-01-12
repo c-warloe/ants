@@ -375,16 +375,16 @@ class Ant extends Insect {
 				default:
 				{
 					this.updateEnergy(-this.getEnergy());  // die if bad opcode
-					console.log("default");
+					//console.log("default");
 					return;
 				}
 				case Opcode.generateRandomNumber:
 				{
 					effectorUsed = false;
-					console.log(this.lastRandomNumber);
+					//console.log(this.lastRandomNumber);
 					this.lastRandomNumber = randInt(0, cmd.operand1 - 1);
-					console.log(this.lastRandomNumber);
-					console.log("generateRandomNumber");
+					//console.log(this.lastRandomNumber);
+					//console.log("generateRandomNumber");
 					break;
 				}
 				case Opcode.rememberPheromone:
@@ -414,14 +414,14 @@ class Ant extends Insect {
 						this.lastPheromoneStrength = pheromone.getEnergy();
 						this.lastPheromoneType = pheromone.getPheromoneType();
 					}
-					console.log("rememberPheromone");
+					//console.log("rememberPheromone");
 					break;
 				}
 				case Opcode.goto:
 				{
 					effectorUsed = false;
 					newip = cmd.operand1;
-					console.log("goto");
+					//console.log("goto");
 					break;
 				}
 				case Opcode.if:
@@ -429,7 +429,7 @@ class Ant extends Insect {
 					effectorUsed = false;
 					if (this.conditionTrue(cmd.operand1))
 						newip = cmd.operand2;
-					console.log("if");
+					//console.log("if");
 					break;
 				}
 				case Opcode.eatFood:
@@ -437,32 +437,32 @@ class Ant extends Insect {
 					let amt = Math.min(this.foodHeld, ANT_EAT_AMOUNT);
 					this.updateEnergy(amt);
 					this.foodHeld -= amt;
-					console.log("eatFood");
+					//console.log("eatFood");
 					break;
 				}
 				case Opcode.bite:
 				{
 					this.studentWorld.biteEnemyAt(this, this.colony, ANT_BITE_DAMAGE);
-					console.log("bite");
+					//console.log("bite");
 					break;
 				}
 				case Opcode.moveForward:
 				{
 					this.moveForwardIfPossible();
-					console.log("moveForward");
+					//console.log("moveForward");
 					break;
 				}
 				case Opcode.pickUpFood:
 				{
 					this.foodHeld += this.pickupFood(Math.min(ANT_MAX_FOOD_THAT_CAN_BE_CARRIED - this.foodHeld, ANT_FOOD_PICKUP_AMOUNT));
-					console.log("pickUpFood");
+					//console.log("pickUpFood");
 					break;
 				}
 				case Opcode.dropFood:
 				{
 					this.addFood(this.foodHeld);
 					this.foodHeld = 0;
-					console.log("dropFood");
+					//console.log("dropFood");
 					break;
 				}
 				case Opcode.emitPheromone:
@@ -481,25 +481,25 @@ class Ant extends Insect {
 						break;
 					}
 					this.emitPheromone(newPheromone);
-					console.log("emitPheromone");
+					//console.log("emitPheromone");
 					break;
 				}
 				case Opcode.faceRandomDirection:
 				{
 					this.setDirection(getRandomDirection());
-					console.log("faceRandomDirection");
+					//console.log("faceRandomDirection");
 					break;
 				}
 				case Opcode.rotateClockwise:  // 1 2 3 4 --> 2 3 4 1
 				{
 					this.setDirectionNum(1 + this.getDirectionNum() % 4);
-					console.log("rotateClockwise");
+					//console.log("rotateClockwise");
 					break;
 				}
 				case Opcode.rotateCounterClockwise:  // 1 2 3 4 --> 4 1 2 3
 				{
 					this.setDirectionNum(4 - ((5 - this.getDirectionNum()) % 4));
-					console.log("rotateCounterClockwise");
+					//console.log("rotateCounterClockwise");
 					break;
 				}
 			}
@@ -557,7 +557,7 @@ class Ant extends Insect {
 			}
 			case Condition.i_am_standing_on_my_anthill:
 			{
-				console.log(this.studentWorld.isAntHillAt(this.getX(), this.getY(), this.colony));
+				//console.log(this.studentWorld.isAntHillAt(this.getX(), this.getY(), this.colony));
 				return this.studentWorld.isAntHillAt(this.getX(), this.getY(), this.colony);
 			}
 			case Condition.i_smell_pheromone_in_front_of_me:

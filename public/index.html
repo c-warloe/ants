@@ -54,12 +54,13 @@
                           <div class="nav-link dropbtn">More</div>
                           <div class="dropdown-content">
                               <div id="submitButton" class="nav-link" onclick="exportFile()">Export Code</div>
-                              <div id="submitButton" class="nav-link" >Import Code</div>
-                              <div id="submitButton" class="nav-link" >Import Map</div>
+                              <input name="fieldFile" class="nav-link nav-item" type="file" id="code" accept=".bug"/>
+                              <label class="nav-link" for="code">Import Code</label>
+                              <!-- <div id="submitButton" class="nav-link" >Import Code</div> -->
+                              <input name="fieldFile" class="nav-link nav-item" type="file" id="file" accept=".txt"/>
+                              <label class="nav-link" for="file">Import Map</label>
                           </div>
                         </div>
-                    </li>
-                    <input name="fieldFile" class="nav-item" type="file" id="file" accept=".txt">
                     </li>
                 </ul>
             </div>

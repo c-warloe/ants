@@ -79,7 +79,6 @@ function rightField(){
 }
 
 function addField(evt){
-    console.log(evt.target.files);
     var reader  = new FileReader();
 
     reader.addEventListener("load", function () {
@@ -97,9 +96,26 @@ function addField(evt){
         sw = new StudentWorld();
         sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
         sw.draw();
-        // var abs = reader.result;
-        // console.log(reader.result);
-        // console.log(btoa(reader.result));
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(evt.target.files[0]);
+    }
+}
+
+function changeCode(evt){
+    var reader  = new FileReader();
+
+    reader.addEventListener("load", function () {
+        clearInterval(tickInterval);
+        var button = document.getElementById("runButton");
+        button.innerHTML = "Run";
+        console.log(reader.result);
+        var f = atob(reader.result.substring(13));
+        editor.setValue(f);
+        sw = new StudentWorld();
+        sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+        sw.draw();
     }, false);
 
     if (file) {
@@ -107,3 +123,4 @@ function addField(evt){
     }
 }
 document.getElementById("file").addEventListener('change', addField, false);
+document.getElementById("code").addEventListener('change', changeCode, false);
