@@ -32,7 +32,10 @@ const Condition = {
     i_was_blocked_from_moving: 8,
     last_random_number_was_zero: 9,
     last_pheromone_stronger: 10,
-    same_pheromone_type: 11
+    same_pheromone_type: 11,
+    i_smell_pheromone_1_in_front_of_me: 12,
+    i_smell_pheromone_2_in_front_of_me: 13,
+    i_smell_pheromone_3_in_front_of_me: 14
 }
 
 const Direction = {none: '', up: '_up', right: '_right', down: '_down', left: '_left'};

@@ -565,6 +565,21 @@ class Ant extends Insect {
 				let xy = this.getXYInFrontOfMe();
 				return this.studentWorld.getPheromoneAt_3(xy[0], xy[1], this.colony) != null;
 			}
+			case Condition.i_smell_pheromone_1_in_front_of_me:
+			{
+				let xy = this.getXYInFrontOfMe();
+				return this.studentWorld.getPheromoneAt_4(xy[0], xy[1], this.colony, PheromoneType.ptype1) != null;
+			}
+			case Condition.i_smell_pheromone_2_in_front_of_me:
+			{
+				let xy = this.getXYInFrontOfMe();
+				return this.studentWorld.getPheromoneAt_4(xy[0], xy[1], this.colony, PheromoneType.ptype2) != null;
+			}
+			case Condition.i_smell_pheromone_3_in_front_of_me:
+			{
+				let xy = this.getXYInFrontOfMe();
+				return this.studentWorld.getPheromoneAt_4(xy[0], xy[1], this.colony, PheromoneType.ptype3) != null;
+			}
 			case Condition.i_smell_danger_in_front_of_me:
 			{
 				let xy = this.getXYInFrontOfMe();

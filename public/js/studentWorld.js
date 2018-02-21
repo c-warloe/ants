@@ -80,10 +80,12 @@ class StudentWorld extends GameWorld{
 		//let x = new Ant(this, 31, 31, Colony.blue, program0);
 		//this.addActor(x);
 
-		this.addActor(new Food(this, 31, 35, START_FOOD_ENERGY));
-		//let g = new Ant(this, 31, 31, Colony.green, program0);
-		//this.addActor(g);
-		this.addActor(new AntHill(this, 31, 31, Colony.blue, program0));
+		//this.addActor(new Food(this, 31, 35, START_FOOD_ENERGY));
+		let g = new Ant(this, 31, 31, Colony.green, program0);
+		this.addActor(g);
+		this.addActor(new Pheromone(this, 31, 30, Colony.green, PheromoneType.ptype3));
+
+		//this.addActor(new AntHill(this, 31, 31, Colony.blue, program0));
 		/*this.addActor(new Food(this, 33, 31, START_FOOD_ENERGY));
 		this.addActor(new Food(this, 29, 31, START_FOOD_ENERGY));
 		this.addActor(new Food(this, 31, 33, START_FOOD_ENERGY));*/

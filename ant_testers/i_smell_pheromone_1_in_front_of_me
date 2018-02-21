@@ -1,0 +1,13 @@
+colony: NAME
+
+start:
+    if i_smell_pheromone_1_in_front_of_me then goto spin
+    goto run
+    
+spin:
+    rotateClockwise
+    goto spin
+    
+run:
+    moveForward
+    goto run
