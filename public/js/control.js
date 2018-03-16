@@ -7,9 +7,9 @@ function compileCode(){
     if(result[0]){
         terminal.insert("Colony '" + result[2] + "' successfully compiled (" + result[1]+")\n");
         terminal.insert(compileInstructions);
-        compiledProgram = result;
+        greenProgram = result;
         sw = new StudentWorld();
-        sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+        sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
     	sw.draw();
     }else{
         terminal.insert("ERROR (Line "+result[1]+"): "+result[2]+"\n");
@@ -20,9 +20,22 @@ function compileCode(){
 function runSimulation(){
     var button = document.getElementById("runButton");
     if(button.innerHTML === "Run"){
-        terminal.setValue("Running Colony '" + compiledProgram[2] + "'...\nPress 'Pause' to stop the simulation\nPress 'Compile' to reset the simulation");
+        terminal.setValue("Running Colony '" + greenProgram[2] + "'...\nPress 'Pause' to stop the simulation\nPress 'Compile' to reset the simulation");
         tickInterval = setInterval(function(){
-            if(sw.ticks === 2000) {
+            if (sw.ticks == 1 && recordFlag == true){
+                capturer.start();
+            }
+            if (sw.ticks == 2000 && recordFlag == true){
+                recordFlag = false
+                capturer.stop();
+                capturer.save();
+                return;
+            }
+            if (recordFlag == true){
+                capturer.capture(canvas);
+            }
+
+            if (sw.ticks === 2000){
                 clearInterval(tickInterval)
                 return;
             }
@@ -31,7 +44,13 @@ function runSimulation(){
         }, 50);
         button.innerHTML = "Pause";
     }else{
-        terminal.setValue("Paused Colony '" + compiledProgram[2] + "'...\nPress 'Run' to resume the simulation\nPress 'Compile' to reset the simulation");
+        if (recordFlag == true){
+            recordFlag = false;
+            capturer.stop();
+            capturer.save();
+        }
+        
+        terminal.setValue("Paused Colony '" + greenProgram[2] + "'...\nPress 'Run' to resume the simulation\nPress 'Compile' to reset the simulation");
         clearInterval(tickInterval);
         button.innerHTML = "Run";
     }
@@ -64,7 +83,7 @@ function leftField(){
     button.innerHTML = "Run";
     field_index = (field_index == 0)?fields.length-1: field_index-1;
     sw = new StudentWorld();
-    sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+    sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
     sw.draw();
 }
 
@@ -74,7 +93,7 @@ function rightField(){
     button.innerHTML = "Run";
     field_index++;
     sw = new StudentWorld();
-    sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+    sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
     sw.draw();
 }
 
@@ -131,7 +150,7 @@ function addField(evt){
             fields.push(fl);
             field_index = fields.length-1;
             sw = new StudentWorld();
-            sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+            sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
             sw.draw();
         }
         
@@ -142,24 +161,74 @@ function addField(evt){
     }
 }
 
-function changeCode(evt){
-    var reader  = new FileReader();
+function importGreen(){    
+    var r = new FileReader();
+    r.readAsText(document.getElementById('importGreen').files[0]);
 
-    reader.addEventListener("load", function () {
-        clearInterval(tickInterval);
-        var button = document.getElementById("runButton");
-        button.innerHTML = "Run";
-        console.log(reader.result);
-        var f = atob(reader.result.substring(13));
-        editor.setValue(f);
+    r.onload = function(e) { 
+        var contents = e.target.result;
+        console.log(contents)
+
+        greenProgram = compile(contents);
+        editor.setValue(contents)
+
         sw = new StudentWorld();
-        sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+        sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
         sw.draw();
-    }, false);
-
-    if (file) {
-        reader.readAsDataURL(evt.target.files[0]);
     }
 }
+
+function importRed(program){    
+    var r = new FileReader();
+    r.readAsText(document.getElementById('importRed').files[0]);
+
+    r.onload = function(e) { 
+        var contents = e.target.result;
+        console.log(contents)
+
+        redProgram = compile(contents);
+
+        sw = new StudentWorld();
+        sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
+        sw.draw();
+    }
+}
+
+function importBlue(program){    
+    var r = new FileReader();
+    r.readAsText(document.getElementById('importBlue').files[0]);
+
+    r.onload = function(e) { 
+        var contents = e.target.result;
+        console.log(contents)
+
+        blueProgram = compile(contents);
+
+        sw = new StudentWorld();
+        sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
+        sw.draw();
+    }
+}
+
+function importYellow(){    
+    var r = new FileReader();
+    r.readAsText(document.getElementById('importYellow').files[0]);
+
+    r.onload = function(e) { 
+        var contents = e.target.result;
+        console.log(contents)
+
+        yellowProgram = compile(contents);
+
+        sw = new StudentWorld();
+        sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
+        sw.draw();
+
+    }
+}
+
+function record(){
+    recordFlag = true;
+}
+
 document.getElementById("file").addEventListener('change', addField, false);
-document.getElementById("code").addEventListener('change', changeCode, false);

@@ -11,10 +11,13 @@ editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/bug");
 editor.getSession().setUseWrapMode(true);
 editor.setShowPrintMargin(false);
-var compiledProgram = compile(editor.getValue());
-var cpuProgram = compile(dumbAntProg);
 
-//Terminal Setup
+var greenProgram = compile(placeHolderText);
+var redProgram = compile(dumbAntProg);
+var blueProgram = compile(dumbAntProg);
+var yellowProgram = compile(dumbAntProg);
+
+// Terminal Setup
 document.getElementById("terminal").innerHTML = terminalInstructions;
 var terminal = ace.edit("terminal");
 terminal.setTheme("ace/theme/vibrant_ink");
@@ -24,7 +27,7 @@ terminal.setOptions({readOnly: true, highlightActiveLine: false, highlightGutter
 terminal.renderer.$cursorLayer.element.style.display = "none"
 document.getElementById("terminal").removeAttribute("tabIndex");
 
-//Simulation Setup
+// Simulation Setup
 // graphics.js
 var canvas = document.getElementById('graphics');
 var sim = document.getElementById("sim");
@@ -38,6 +41,10 @@ var offset = canvas.width/64;
 
 var sw = new StudentWorld();
 var tickInterval;
+
+// Create a capturer that exports a WebM video
+var capturer = new CCapture( { format: 'webm' } );
+var recordFlag = false;
 
 //resize handler for canvas
 function onResize( element, callback ){

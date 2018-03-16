@@ -42,7 +42,7 @@ for (var i = 0; i < img_names.length; i++){
 	imgs[img_names[i]].onload = function(){
 		loaded_imgs++;
 		if(loaded_imgs === 33) {
-            sw.init(compiledProgram,cpuProgram,cpuProgram,cpuProgram);
+            sw.init(greenProgram, redProgram, yellowProgram, blueProgram);
             sw.draw();
 		}
 	}
