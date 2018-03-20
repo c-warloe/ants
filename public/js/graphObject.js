@@ -12,11 +12,11 @@ class GraphObject {
 		this.depth = depth;
 	}
 
-	getX(){//likely to be unnecessary
+	getX(){
 		return this.x;
 	}
 
-	getY(){//likely to be unnecessary
+	getY(){
 		return this.y;
 	}
 

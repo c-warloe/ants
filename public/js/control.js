@@ -1,3 +1,5 @@
+// control.js
+
 function compileCode(){
     terminal.setValue("Compiling...\n");
     terminal.gotoLine(2);

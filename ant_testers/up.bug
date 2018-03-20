@@ -1,0 +1,7 @@
+colony: t
+
+start:
+    goto run
+run:
+    moveForward
+    goto run

@@ -1,0 +1,8 @@
+colony: t
+
+start:
+    rotateClockwise
+    goto run
+run:
+    moveForward
+    goto run
