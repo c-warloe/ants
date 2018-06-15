@@ -331,6 +331,11 @@ class StudentWorld extends GameWorld{
 
         if(this.ticks === 2000){
             if(this.currentWinner !== ""){
+                let highscore = Number($('#highscore-count').text());
+                console.log(highscore);
+                if(this.winningScore > highscore){
+                    $('#highscore-count').text(this.winningScore)
+				}
 				swal({
 					title: "And the winner is...",
 					text: `Colony ${this.currentWinner} is the winner, with ${this.winningScore} ants produced!`,

@@ -1,5 +1,7 @@
 // control.js
 
+let highScore = 0;
+
 function compileCode(){
     terminal.setValue("Compiling...\n");
     terminal.gotoLine(2);
@@ -28,9 +30,10 @@ function runSimulation(){
                 capturer.start();
             }
             if (sw.ticks == 2000 && recordFlag == true){
-                recordFlag = false
+                recordFlag = false;
                 capturer.stop();
                 capturer.save();
+                clearInterval(tickInterval);
                 return;
             }
             if (recordFlag == true){
@@ -38,7 +41,7 @@ function runSimulation(){
             }
 
             if (sw.ticks === 2000){
-                clearInterval(tickInterval)
+                clearInterval(tickInterval);
                 return;
             }
             sw.move();

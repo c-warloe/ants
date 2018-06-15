@@ -132,3 +132,12 @@ input {
 	position: absolute;
 	z-index: -1;
 }
+
+.navbar .container {
+	margin: 0 30px;
+}
+
+#highscore {
+	margin-left: 5px;
+	margin-right: 10px;
+}

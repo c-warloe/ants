@@ -11,10 +11,11 @@
     "url": "https://github.com/christianwarloe/ants"
   },
   "dependencies": {
-    "express": "^4.15.2",
-    "chalk": "^1.1.3",
     "body-parser": "^1.17.1",
+    "ccapture.js": "1.0.7",
+    "chalk": "^1.1.3",
+    "express": "^4.15.2",
     "express-session": "^1.11.3",
-    "ccapture.js": "1.0.7"
+    "sqlite3": "^4.0.0"
   }
 }
